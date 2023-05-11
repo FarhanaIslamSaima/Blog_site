@@ -44,7 +44,7 @@ const useStyle=makeStyles(theme=>({
 }))
 
 const Login = () => {
-    
+  
     const init={
         email:'',
         password:''
@@ -52,14 +52,19 @@ const Login = () => {
     const [log,setLog]=useState(init);
     let history=useNavigate();
     const {login,setLogin}=useContext(LoginCheck)
+    const {refresh,setRefresh}=useContext(LoginCheck);
     const classes=useStyle();
-    const handleLogin=()=>{
-       LoginAuth(log);
+
+    const handleLogin=async()=>{
+      await LoginAuth(log);
+     
+      
        
         
 
 
     }
+    
     const createLogin=(e)=>{
         setLog({...log,[e.target.name]:e.target.value})
        console.log(e.target.value)

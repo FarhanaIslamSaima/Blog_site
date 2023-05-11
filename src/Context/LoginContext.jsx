@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 import { createContext,useContext } from 'react';
+
 export const LoginCheck=createContext(null);
 
+
 const LoginContext = ({children}) => {
-    const [login,setLogin]=useState(false);
+    const [login,setLogin]=useState();
+    console.log(login)
+   
+  
+    const [refresh,setRefresh]=useState(false);
+   // console.log(login)
     return (
        <LoginCheck.Provider value={{
         login,
-        setLogin
+        setLogin,
+        refresh,
+        setRefresh
        }}>
         {children}
 
