@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useContext } from 'react';
 import { LoginCheck } from '../../Context/LoginContext';
 import { Box,Typography,InputBase,makeStyles,Button } from '@material-ui/core';
 import {Route,useNavigate} from 'react-router-dom'
+import { LoginAuth } from '../../Server/Authentication';
 const useStyle=makeStyles(theme=>({
     container:{
         display:'flex',
@@ -43,23 +44,34 @@ const useStyle=makeStyles(theme=>({
 }))
 
 const Login = () => {
+    
+    const init={
+        email:'',
+        password:''
+    }
+    const [log,setLog]=useState(init);
     let history=useNavigate();
     const {login,setLogin}=useContext(LoginCheck)
     const classes=useStyle();
     const handleLogin=()=>{
-        setLogin(true);
-        
-        history("/");
+       LoginAuth(log);
+       
         
 
 
     }
+    const createLogin=(e)=>{
+        setLog({...log,[e.target.name]:e.target.value})
+       console.log(e.target.value)
+
+    }
+    console.log(log.email);
     return (
         <Box className={classes.container}>
             <Typography>Login Form</Typography>
            <Box className={classes.center}>
-           <InputBase placeholder={'Place your Email Address'} className={classes.textField}></InputBase>
-                <InputBase placeholder={'Place your Password'} className={classes.textField}></InputBase>
+           <InputBase placeholder={'Place your Email Address'} name="email" className={classes.textField} onChange={(e)=>createLogin(e)}></InputBase>
+                <InputBase placeholder={'Place your Password'} name="password" className={classes.textField} onChange={(e)=>createLogin(e)}></InputBase>
                 <Button color={'primary'} variant={'contained'} onClick={(e)=>handleLogin(e)}>Login</Button>
 
            </Box>
