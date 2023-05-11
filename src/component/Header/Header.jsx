@@ -1,5 +1,11 @@
 import React from 'react';
 import{AppBar,Toolbar,makeStyles,Box,Grid, Typography} from '@material-ui/core'
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import { LoginCheck } from '../../Context/LoginContext';
+import { useContext } from 'react';
+import Login from '../Login/Login';
+import Home from '../Home/Home';
+import { Link } from 'react-router-dom';
 const useStyle=makeStyles({
     header:{
         background:'black',
@@ -43,11 +49,17 @@ const useStyle=makeStyles({
         }
 
 
+    },
+    menu:{
+        color:'white',
+        textDecoration:"none",
+        fontWeight:'bold'
     }
 
 })
 
 const Header = () => {
+    const {login}=useContext(LoginCheck)
     const classes=useStyle();
     return (
       <AppBar>
@@ -62,10 +74,16 @@ const Header = () => {
 
            <Grid item lg={4}>
            <Box className={classes.rightContainer}>
-    <Typography>Home</Typography>
-    <Typography>MyBlogs</Typography>
-    <Typography>About</Typography>
-    <Typography>Login</Typography>
+            <Link to="/"><Typography className={classes.menu}>Home</Typography></Link>
+           {login?<Typography className={classes.menu}>Logout</Typography>:<Link to="/login"><Typography className={classes.menu}>Login</Typography></Link>} 
+            <Typography className={classes.menu}>AboutMe</Typography>
+            
+            {login?<Typography className={classes.menu}>AddPost</Typography>:""}
+      
+
+            
+            
+  
 
 </Box>
            </Grid>
