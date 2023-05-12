@@ -7,11 +7,18 @@ import Header from '../Header/Header';
 import { useContext } from 'react';
 import { TextProvider } from '../../Context/TextContext';
 import { handleElement } from '../../Server/AddElement';
+import { ref } from 'firebase/storage';
+import { uploadBytes } from 'firebase/storage';
+import { storage } from '../../Server/FirebaseStorage';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../Server/App';
+import { LoginCheck } from '../../Context/LoginContext';
 
 
 import { useRef, useMemo } from 'react';
 import JoditEditor from 'jodit-react';
 import { useNavigate } from 'react-router-dom';
+import {v4} from 'uuid'
 const functionHandle=()=>{
     
 }
@@ -72,6 +79,8 @@ buttons:{
 
 const Addpost=()=>{
     const {text,setText}=useContext(TextProvider);
+    const [imageUpload,setUploadImage]=useState(null);
+    const {login,setLogin}=useContext(LoginCheck)
     const editor = useRef(null);
 	const [content, setContent] = useState('');
     setText(content);
@@ -93,10 +102,21 @@ const Addpost=()=>{
 
 
     }
+    console.log(imageUpload)
     const history=useNavigate();
     const handleSubmit=async(e)=>{
         try{
            handleElement(post);
+           const imageRef=ref(storage,`images/${imageUpload.name+v4()}`);
+           try{
+            await uploadBytes(imageRef,imageUpload);
+            alert("Image uploaded")
+           }
+           catch(error){
+            console.log(error)
+         
+           }
+           
         
            
           
@@ -111,24 +131,25 @@ const Addpost=()=>{
         
 
     }
+   
     console.log(post)
     return (
         <>
         
       
         <Box className={classes.container}>
-            <Typography className={classes.header}>Create Your Blog Post here</Typography>
+           
             <Box className={classes.displayImage}>
             <img src={pic} className={classes.image}/>
 
             </Box>
             <FormControl>
             <label htmlFor='button'>
-            <ControlPointIcon className={classes.icon}> </ControlPointIcon>
+            <ControlPointIcon className={classes.icon} > </ControlPointIcon>
 
             </label>
            
-            <input type="file" id="button"className={classes.file}></input>
+            <input type="file" id="button"className={classes.file}onChange={(e)=>setUploadImage(e.target.files[0])}></input>
             <InputBase placeholder={'Your Post Title will go here'} className={classes.textField} name="title"onChange={(e)=>handlePost(e)}></InputBase>
             <InputBase placeholder={'Your post category will go here'} className={classes.textField} name="Category" onChange={(e)=>handlePost(e)}></InputBase>
             <TextareaAutosize className={classes.text}name="description" placeholder="Tell Your Story here..."   onChange={(e)=>handlePost(e)}  style={{height:"184px"}}      ></TextareaAutosize>

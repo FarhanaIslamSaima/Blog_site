@@ -16,15 +16,20 @@ function App() {
   return (
     <TextContext>
        <LoginContext>
- 
+
  <BrowserRouter>
 
+
  <Routes>
- 
-           <Route path="/" element={<Home/>}></Route>
+  <Route path={"/"} element={<Home/>}></Route>
+
            <Route path="/login" element={<Login/>}></Route>
-           <Route path="/addpost" element={<Addpost/>}></Route>
-       </Routes>
+           <Route exact path="/addPost" element={<Addpost/>}></Route>
+
+ </Routes>
+
+           
+      
  </BrowserRouter>
 
  

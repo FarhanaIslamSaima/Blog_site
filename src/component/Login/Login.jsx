@@ -11,7 +11,11 @@ const useStyle=makeStyles(theme=>({
         alignItems:'center',
         justifyContent:'center',
         [theme.breakpoints.up('lg')]:{
-            margin:"59px 521px",
+            margin:"138px 521px",
+
+        },
+        [theme.breakpoints.down('xs')]:{
+            margin:"74px -2px",
 
         },
          
@@ -56,7 +60,15 @@ const Login = () => {
     const classes=useStyle();
 
     const handleLogin=async()=>{
-      await LoginAuth(log);
+        try{
+            const response=await LoginAuth(log);
+            console.log(response)
+
+        }
+        catch(error){
+            alert(error.message);
+        }
+      
      
       
        

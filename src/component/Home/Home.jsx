@@ -7,6 +7,8 @@ import { useContext } from 'react';
 import { LoginCheck } from '../../Context/LoginContext';
 const Home = () => {
     const {login,setLogin}=useContext(LoginCheck);
+    
+
      
     
   
@@ -14,7 +16,7 @@ const Home = () => {
     
     return (
         <>
-        <Header/>
+      <Header/>
         
         <Banner/>
         <Posts/>

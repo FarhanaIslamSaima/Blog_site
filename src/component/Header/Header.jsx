@@ -70,21 +70,23 @@ const {login,setLogin}=useContext(LoginCheck)
    console.log(auth)    
   
 
-   onAuthStateChanged(auth,(data)=>{
-    if(data){
-
-        
-        history("/")
-        setLogin(data.accessToken);
-    }
-    
-   })
+  
   
    
 
 
    
+   onAuthStateChanged(auth,(data)=>{
+    if(data){
+        
+        history("/")
 
+        
+        
+        setLogin(data.accessToken);
+    }
+    
+   })
 
   
  
@@ -106,6 +108,8 @@ const {login,setLogin}=useContext(LoginCheck)
         
 
     }
+ 
+
     return (
       <AppBar>
         <Toolbar className={classes.header}>
@@ -123,7 +127,7 @@ const {login,setLogin}=useContext(LoginCheck)
            {login?<Button className={login?classes.menu:classes.menu} style={{color:'white',fontWeight:'bold'}}onClick={(e)=>handleLogout(e)}>Logout</Button>:<Link to="/login"><Typography className={classes.menu}>Login</Typography></Link>} 
             <Typography className={classes.menu}>AboutMe</Typography>
             
-            {login?<Link to={"/addpost"}><Typography className={classes.menu}>AddPost</Typography></Link>:""}
+            {login?<Link to={"/addPost"}><Typography className={classes.menu}>AddPost</Typography></Link>:""}
       
 
             
