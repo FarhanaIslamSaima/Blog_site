@@ -37,8 +37,8 @@ const Banner = () => {
        <Box className={classes.container}>
         
             
-                <Typography className={classes.bigHead}>Welcome!!!</Typography>
-                <Typography className={classes.smallHead}>This is all about me!!</Typography>
+                <Typography className={classes.bigHead} style={{fontWeight:"bold",fontSize:'35px'}}>Welcome!!!</Typography>
+                <Typography className={classes.smallHead} style={{fontSize:'35px'}}>This is all about me!!</Typography>
             
         
 

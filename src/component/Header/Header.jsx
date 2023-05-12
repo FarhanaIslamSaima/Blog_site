@@ -63,6 +63,7 @@ const useStyle=makeStyles({
 })
 
 const Header = () => {
+    const [load,setLoad]=useState(false);
    
     const history=useNavigate();
 const {login,setLogin}=useContext(LoginCheck)
@@ -71,12 +72,15 @@ const {login,setLogin}=useContext(LoginCheck)
 
    onAuthStateChanged(auth,(data)=>{
     if(data){
+
         
         history("/")
         setLogin(data.accessToken);
     }
     
    })
+  
+   
 
 
    
@@ -116,10 +120,10 @@ const {login,setLogin}=useContext(LoginCheck)
            <Grid item lg={4}>
            <Box className={classes.rightContainer}>
             <Link to="/"><Typography className={classes.menu}>Home</Typography></Link>
-           {login?<Button className={classes.menu} onClick={(e)=>handleLogout(e)}>Logout</Button>:<Link to="/login"><Typography className={classes.menu}>Login</Typography></Link>} 
+           {login?<Button className={login?classes.menu:classes.menu} style={{color:'white',fontWeight:'bold'}}onClick={(e)=>handleLogout(e)}>Logout</Button>:<Link to="/login"><Typography className={classes.menu}>Login</Typography></Link>} 
             <Typography className={classes.menu}>AboutMe</Typography>
             
-            {login?<Typography className={classes.menu}>AddPost</Typography>:""}
+            {login?<Link to={"/addpost"}><Typography className={classes.menu}>AddPost</Typography></Link>:""}
       
 
             
